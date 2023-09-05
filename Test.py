@@ -7,7 +7,7 @@ import torch.nn as nn
 from sklearn.metrics import accuracy_score,precision_score,f1_score,recall_score
 
 bt=100
-model_path='result/model/cla_net_9.pth'
+model_path='result/model/cla_net_10epochs.pth'
 device=torch.device('cuda:0')
 test_data=ut.get_data_test(0)
 test_loader=data.DataLoader(test_data,batch_size=bt)
