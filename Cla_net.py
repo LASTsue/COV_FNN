@@ -76,3 +76,12 @@ class Cla_net(torch.nn.Module):
         x=self.dr3(x)
         x=self.linear1(x)
         return x
+
+
+# #main
+# if __name__ == "__main__":
+#     data=torch.randn(10,3,299,299)
+#     cla_net=Cla_net()
+#     re=cla_net(data)
+#     print(re.shape)
+#     print(cla_net)

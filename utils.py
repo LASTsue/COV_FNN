@@ -8,9 +8,9 @@ import torch
 
 from Pre_data import Z_Data
 
-def get_logger():
-    logging.basicConfig(level=logging.INFO,filename='result/log/log.log',
-                        format='%(asctime)s  - %(message)s')
+def get_logger(name='log'):
+    logging.basicConfig(level=logging.INFO,filename=f'result/log/{name}.log',
+                        format='%(levelname)s - %(asctime)s  - %(message)s')
     logger = logging.getLogger("COVID_FNN")
     handler = logging.StreamHandler(sys.stdout)
     handler.setLevel(logging.INFO)
