@@ -16,7 +16,7 @@ image_type=0
 seed=777
 device=torch.device('cuda:0')
 
-# load_cla_model_path='result/model/cla_net_10epochs.pth'
+load_cla_model_path='result/model/cla_net_10epochs.pth'
 load_qfnn_model_path='result/model/trans_net_20.pth'
 
 
@@ -30,8 +30,8 @@ ut.setup_seed(seed)
 logger.critical("============================Start print log============================")
 
 
-qu_net=Qfnn().to(device)
-qu_net.load_state_dict(torch.load(load_qfnn_model_path))
+qu_net=Qfnn(load_cla_model_path).to(device)
+# qu_net.load_state_dict(torch.load(load_qfnn_model_path))
 
 # for param in cla_net.parameters():
 #     param.requires_grad = False
@@ -65,6 +65,8 @@ logger.critical("val data have {} covid,{} normal,{} lung,{} pne".format(
 
 #加载优化器，损失函数
 optimizer=torch.optim.Adam(qu_net.parameters(),lr=lr)
+#SGD优化器
+# optimizer=torch.optim.SGD(qu_net.parameters(),lr=lr,momentum=0.9)
 loss_func=nn.CrossEntropyLoss()
 loss_val=[]
 acc_val=[]

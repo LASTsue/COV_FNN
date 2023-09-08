@@ -14,7 +14,11 @@ weight_shapes = {"weights": (n_layers, n_qubits)}
 def qnode(inputs, weights):
     qml.AngleEmbedding(inputs, wires=range(n_qubits))
     qml.BasicEntanglerLayers(weights[0].reshape(1,n_qubits), wires=range(n_qubits),rotation=qml.RX)
-    qml.BasicEntanglerLayers(weights[1].reshape(1,n_qubits), wires=range(n_qubits),rotation=qml.RZ)
+    # qml.BasicEntanglerLayers(weights[1].reshape(1,n_qubits), wires=range(n_qubits),rotation=qml.RZ)
+    qml.RZ(weights[1][0],0)
+    qml.RZ(weights[1][1],1)
+    qml.RZ(weights[1][2],2)
+    qml.RZ(weights[1][3],3)
 
     return [qml.expval(qml.PauliZ(wires=i)) for i in range(n_qubits)]
 
@@ -22,7 +26,7 @@ class Qfnn(nn.Module):
     def __init__(self,cla_path='') -> None:
         super(Qfnn,self).__init__()
         self.cla_net=Cla_net()
-        # self.cla_net.load_state_dict(torch.load(cla_path))
+        self.cla_net.load_state_dict(torch.load(cla_path))
         self.q_layer=qml.qnn.TorchLayer(qnode,weight_shapes)
 
     def forward(self,x):
