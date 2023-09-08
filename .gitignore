@@ -3,3 +3,5 @@
 *.pth
 *.pyc
 *.npy
+*.out
+nohup.out
